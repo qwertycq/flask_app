@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бронирование столика</title>
+</head>
+<body>
+    <h1>Бронирование столика</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <form method="POST">
+        <label for="guest_name">Ваше имя:</label>
+        <input type="text" id="guest_name" name="guest_name" required>
+        <br>
+        <label for="guest_phone">Ваш телефон:</label>
+        <input type="text" id="guest_phone" name="guest_phone" required>
+        <br>
+        <label for="table_id">Номер столика:</label>
+        <select id="table_id" name="table_id" required>
+            {% for table in tables %}
+                <option value="{{ table.id }}">Столик №{{ table.table_number }} ({{ table.capacity }} мест)</option>
+            {% endfor %}
+        </select>
+        <br>
+        <label for="booking_time">Время бронирования:</label>
+        <input type="datetime-local" id="booking_time" name="booking_time" required>
+        <br>
+        <button type="submit">Забронировать</button>
+    </form>
+    <a href="{{ url_for('index') }}">На главную</a>
+</body>
+</html>

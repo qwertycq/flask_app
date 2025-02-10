@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бронирования</title>
+</head>
+<body>
+    <h1>Список бронирований</h1>
+    <ul>
+        {% for booking in bookings %}
+            <li>
+                {{ booking.guest_name }} ({{ booking.guest_phone }}) - Столик №{{ booking.table.table_number }} на {{ booking.booking_time }}
+                <a href="{{ url_for('cancel_booking', booking_id=booking.id) }}">Отменить</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('index') }}">На главную</a>
+</body>
+</html>
