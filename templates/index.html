@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная</title>
+</head>
+<body>
+    <h1>Добро пожаловать!</h1>
+
+    {% if current_user.is_authenticated %}
+        <p>Вы вошли как {{ current_user.username }}</p>
+        <a href="{{ url_for('logout') }}">Выйти</a>
+        <a href="{{ url_for('book_table') }}">Забронировать столик</a>
+        <a href="{{ url_for('view_bookings') }}">Просмотр бронирований</a>
+    {% else %}
+        <a href="{{ url_for('login') }}">Войти</a>
+    {% endif %}
+</body>
+</html>

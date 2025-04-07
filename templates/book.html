@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Бронирование</title>
+</head>
+<body>
+    <h1>Бронирование столика</h1>
+    <form method="post">
+        <input type="text" name="guest_name" placeholder="Имя гостя" required>
+        <input type="text" name="guest_phone" placeholder="Телефон" required>
+        <select name="table_id">
+            {% for table in tables %}
+                <option value="{{ table.id }}">Стол №{{ table.table_number }}</option>
+            {% endfor %}
+        </select>
+        <input type="datetime-local" name="booking_time" required>
+        <button type="submit">Забронировать</button>
+    </form>
+</body>
+</html>

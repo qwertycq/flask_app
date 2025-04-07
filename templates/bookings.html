@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Забронированные столики</title>
+</head>
+<body>
+    <h1>Список забронированных столиков</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <p class="{{ category }}">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% if bookings %}
+        <table border="1">
+            <tr>
+                <th>Имя гостя</th>
+                <th>Телефон</th>
+                <th>Номер столика</th>
+                <th>Дата и время</th>
+                <th>Действие</th>
+            </tr>
+            {% for booking in bookings %}
+            <tr>
+                <td>{{ booking.guest_name }}</td>
+                <td>{{ booking.guest_phone }}</td>
+                <td>{{ booking.table.table_number }}</td>
+                <td>{{ booking.booking_time.strftime('%Y-%m-%d %H:%M') }}</td>
+                <td>
+                    <form method="post" action="{{ url_for('cancel_booking', booking_id=booking.id) }}">
+                        <button type="submit">Отменить</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>Нет активных бронирований.</p>
+    {% endif %}
+</body>
+</html>
