@@ -7,11 +7,24 @@
 <body>
     <h1>Добро пожаловать!</h1>
 
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <p class="{{ category }}">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
     {% if current_user.is_authenticated %}
         <p>Вы вошли как {{ current_user.username }}</p>
-        <a href="{{ url_for('logout') }}">Выйти</a>
-        <a href="{{ url_for('book_table') }}">Забронировать столик</a>
-        <a href="{{ url_for('view_bookings') }}">Просмотр бронирований</a>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('profile') }}">Профиль</a></li>
+                <li><a href="{{ url_for('book_table') }}">Забронировать столик</a></li>
+                <li><a href="{{ url_for('view_bookings') }}">Просмотр бронирований</a></li>
+                <li><a href="{{ url_for('logout') }}">Выйти</a></li>
+            </ul>
+        </nav>
     {% else %}
         <a href="{{ url_for('login') }}">Войти</a>
     {% endif %}
