@@ -49,9 +49,10 @@ class User(db.Model, UserMixin):
         )
 
     def verify_totp(self, token):
-        # Проверка TOTP кода
+        # Проверка TOTP кода с допуском временного окна
         totp = pyotp.TOTP(self.otp_secret)
-        return totp.verify(token)
+        # Проверяем текущее окно и по одному окну до и после (+/- 30 секунд)
+        return totp.verify(token, valid_window=1)
 
 
 class RestaurantTable(db.Model):
