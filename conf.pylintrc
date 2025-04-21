@@ -1,0 +1,11 @@
+[FORMAT]
+max-line-length = 120
+
+[MESSAGES CONTROL]
+disable = line-too-long,
+          missing-module-docstring,
+          missing-class-docstring,
+          missing-function-docstring
+
+Удалить и вставить в консоль
+pylint --rcfile=conf.pylintrc --reports=y app.py models.py config.py database_setup.py
